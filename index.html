@@ -22,9 +22,10 @@
       min-height: 100vh;
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top, rgba(36, 161, 222, 0.14), transparent 28%),
-        radial-gradient(circle at bottom, rgba(135, 206, 250, 0.08), transparent 30%),
-        linear-gradient(180deg, #061018 0%, #080808 100%);
+        radial-gradient(circle at top, rgba(68, 196, 255, 0.26), transparent 28%),
+        radial-gradient(circle at bottom, rgba(80, 191, 255, 0.18), transparent 34%),
+        radial-gradient(circle at center, rgba(20, 102, 158, 0.16), transparent 52%),
+        linear-gradient(180deg, #081724 0%, #0a1220 42%, #080808 100%);
       color: var(--text);
     }
 
@@ -50,7 +51,7 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at center, rgba(49, 169, 235, 0.08) 0%, rgba(10, 24, 36, 0.06) 36%, rgba(8, 8, 8, 0.3) 100%);
+        radial-gradient(circle at center, rgba(78, 206, 255, 0.18) 0%, rgba(18, 56, 86, 0.12) 34%, rgba(8, 8, 8, 0.28) 100%);
     }
 
     .ambient-glow img {
@@ -61,12 +62,12 @@
       height: auto;
       transform: translate(-50%, -50%) scale(2.3);
       filter:
-        blur(104px)
-        grayscale(0.22)
-        saturate(0.7)
+        blur(92px)
+        grayscale(0.12)
+        saturate(1.08)
         hue-rotate(160deg)
-        brightness(1.14);
-      opacity: 0.24;
+        brightness(1.24);
+      opacity: 0.34;
       mix-blend-mode: screen;
       animation: ambientFloat 7s ease-in-out infinite;
     }
@@ -112,9 +113,9 @@
     }
 
     .button {
-      --white: #e8f7ff;
-      --button-bg: #1b7fc2;
-      --button-bg-deep: #0e5f97;
+      --white: #f2fbff;
+      --button-bg: #29aeff;
+      --button-bg-deep: #0f7fd1;
       --radius: 100px;
       outline: none;
       cursor: pointer;
@@ -122,14 +123,16 @@
       position: relative;
       border-radius: var(--radius);
       background:
-        linear-gradient(180deg, #2aa7eb 0%, var(--button-bg) 55%, var(--button-bg-deep) 100%);
+        linear-gradient(180deg, #6fd8ff 0%, #3fc4ff 24%, var(--button-bg) 58%, var(--button-bg-deep) 100%);
       transition: all 0.2s ease;
       box-shadow:
-        inset 0 0.28rem 0.9rem rgba(255, 255, 255, 0.34),
-        inset 0 -0.14rem 0.35rem rgba(2, 34, 56, 0.5),
-        inset 0 -0.45rem 1rem rgba(255, 255, 255, 0.22),
-        0 1.2rem 2rem rgba(20, 107, 163, 0.38),
-        0 0.5rem 1rem -0.4rem rgba(0, 0, 0, 0.55);
+        inset 0 0.34rem 1rem rgba(255, 255, 255, 0.5),
+        inset 0 -0.16rem 0.4rem rgba(2, 34, 56, 0.42),
+        inset 0 -0.45rem 1rem rgba(255, 255, 255, 0.26),
+        0 0 0 1px rgba(173, 238, 255, 0.3),
+        0 1.4rem 2.6rem rgba(34, 160, 225, 0.52),
+        0 0.8rem 1.4rem -0.3rem rgba(0, 0, 0, 0.48),
+        0 0 38px rgba(72, 196, 255, 0.34);
     }
 
     .button .wrap {
@@ -138,9 +141,10 @@
       letter-spacing: 0.05em;
       color: #ffffff;
       text-shadow:
-        0 0 12px rgba(255, 255, 255, 0.75),
-        0 0 30px rgba(122, 214, 255, 0.42),
-        0 2px 0 rgba(9, 42, 69, 0.38);
+        0 0 14px rgba(255, 255, 255, 0.95),
+        0 0 28px rgba(182, 239, 255, 0.58),
+        0 0 42px rgba(122, 214, 255, 0.42),
+        0 2px 0 rgba(9, 42, 69, 0.34);
       padding: 30px 42px;
       border-radius: inherit;
       position: relative;
@@ -172,7 +176,7 @@
       bottom: 25%;
       top: -100%;
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.18);
+      background-color: rgba(255, 255, 255, 0.24);
     }
 
     .button .wrap::after {
@@ -181,10 +185,10 @@
       top: 12%;
       bottom: 40%;
       border-radius: 22px 22px 0 0;
-      box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 0.95);
+      box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 1);
       background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.34) 0%,
+        rgba(255, 255, 255, 0.46) 0%,
         rgba(0, 0, 0, 0) 50%,
         rgba(0, 0, 0, 0) 100%
       );
@@ -192,11 +196,12 @@
 
     .button:hover {
       box-shadow:
-        inset 0 0.3rem 0.6rem rgba(255, 255, 255, 0.42),
-        inset 0 -0.1rem 0.3rem rgba(2, 34, 56, 0.52),
-        inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.28),
-        0 1.4rem 2.4rem rgba(20, 107, 163, 0.45),
-        0 0.6rem 1rem -0.4rem rgba(0, 0, 0, 0.55);
+        inset 0 0.34rem 0.8rem rgba(255, 255, 255, 0.56),
+        inset 0 -0.1rem 0.3rem rgba(2, 34, 56, 0.44),
+        inset 0 -0.45rem 1rem rgba(255, 255, 255, 0.32),
+        0 1.8rem 3rem rgba(34, 160, 225, 0.6),
+        0 0.8rem 1.2rem -0.3rem rgba(0, 0, 0, 0.46),
+        0 0 52px rgba(72, 196, 255, 0.45);
     }
 
     .button:hover .wrap::before {
@@ -215,11 +220,12 @@
     .button:active {
       transform: translateY(4px);
       box-shadow:
-        inset 0 0.3rem 0.5rem rgba(255, 255, 255, 0.45),
-        inset 0 -0.1rem 0.3rem rgba(2, 34, 56, 0.6),
-        inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.2),
-        0 1rem 1.6rem rgba(20, 107, 163, 0.35),
-        0 0.4rem 0.8rem -0.4rem rgba(0, 0, 0, 0.55);
+        inset 0 0.3rem 0.5rem rgba(255, 255, 255, 0.48),
+        inset 0 -0.1rem 0.3rem rgba(2, 34, 56, 0.55),
+        inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.18),
+        0 1rem 1.6rem rgba(34, 160, 225, 0.42),
+        0 0.4rem 0.8rem -0.4rem rgba(0, 0, 0, 0.5),
+        0 0 28px rgba(72, 196, 255, 0.28);
     }
 
     .button:focus-visible {
@@ -247,12 +253,12 @@
       .ambient-glow img {
         width: min(170vmin, 900px);
         filter:
-          blur(88px)
-          grayscale(0.18)
-          saturate(0.72)
+          blur(82px)
+          grayscale(0.1)
+          saturate(1)
           hue-rotate(160deg)
-          brightness(1.1);
-        opacity: 0.22;
+          brightness(1.18);
+        opacity: 0.3;
       }
 
       .hero-media {
@@ -303,14 +309,60 @@
 
     const button = document.getElementById("openProxyButton");
 
+    function isMobileDevice() {
+      return /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(navigator.userAgent);
+    }
+
     function pickRandomLink() {
       const index = Math.floor(Math.random() * linksPool.length);
       return linksPool[index];
     }
 
+    function buildDesktopProxyLink(link) {
+      try {
+        if (link.startsWith("tg://")) {
+          return link;
+        }
+
+        const url = new URL(link);
+        const isTelegramProxyHost =
+          url.hostname === "t.me" ||
+          url.hostname === "telegram.me" ||
+          url.hostname === "www.t.me";
+
+        if (isTelegramProxyHost && url.pathname === "/proxy") {
+          return "tg://proxy?" + url.searchParams.toString();
+        }
+      } catch {}
+
+      return link;
+    }
+
     function openProxy() {
       const link = pickRandomLink();
-      window.open(link, "_blank", "noopener,noreferrer");
+
+      if (isMobileDevice()) {
+        window.location.href = link;
+        return;
+      }
+
+      const desktopLink = buildDesktopProxyLink(link);
+      let appWasOpened = false;
+
+      const handleAppSwitch = () => {
+        appWasOpened = true;
+      };
+
+      window.addEventListener("blur", handleAppSwitch, { once: true });
+      document.addEventListener("visibilitychange", handleAppSwitch, { once: true });
+
+      window.location.href = desktopLink;
+
+      setTimeout(() => {
+        if (!appWasOpened && document.visibilityState === "visible") {
+          window.location.href = link;
+        }
+      }, 1200);
     }
 
     button.addEventListener("click", openProxy);

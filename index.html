@@ -309,16 +309,12 @@
 
     const button = document.getElementById("openProxyButton");
 
-    function isMobileDevice() {
-      return /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(navigator.userAgent);
-    }
-
     function pickRandomLink() {
       const index = Math.floor(Math.random() * linksPool.length);
       return linksPool[index];
     }
 
-    function buildDesktopProxyLink(link) {
+    function buildAppProxyLink(link) {
       try {
         if (link.startsWith("tg://")) {
           return link;
@@ -338,15 +334,18 @@
       return link;
     }
 
+    function openLink(url) {
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.rel = "noopener noreferrer";
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+    }
+
     function openProxy() {
       const link = pickRandomLink();
-
-      if (isMobileDevice()) {
-        window.location.href = link;
-        return;
-      }
-
-      const desktopLink = buildDesktopProxyLink(link);
+      const appLink = buildAppProxyLink(link);
       let appWasOpened = false;
 
       const handleAppSwitch = () => {
@@ -356,13 +355,13 @@
       window.addEventListener("blur", handleAppSwitch, { once: true });
       document.addEventListener("visibilitychange", handleAppSwitch, { once: true });
 
-      window.location.href = desktopLink;
+      openLink(appLink);
 
       setTimeout(() => {
         if (!appWasOpened && document.visibilityState === "visible") {
-          window.location.href = link;
+          openLink(link);
         }
-      }, 1200);
+      }, 900);
     }
 
     button.addEventListener("click", openProxy);

@@ -189,7 +189,7 @@
       background: linear-gradient(180deg, #4cd1ff 0%, #159df0 100%);
       width: min(100%, 240px);
       min-height: 60px;
-      padding: 0;
+      padding: 0 28px;
       font-size: 18px;
       color: #fff;
       font-weight: 600;
@@ -200,6 +200,10 @@
       cursor: pointer;
       position: relative;
       transition: all 0.3s;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.34),
+        inset 0 -8px 16px rgba(10, 83, 142, 0.22),
+        0 14px 32px rgba(21, 157, 240, 0.34);
     }
 
     .button::before {
@@ -208,10 +212,13 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(130, 221, 255, 0.24);
-      box-shadow: 0 8px 32px 0 rgba(21, 157, 240, 0.38);
-      width: 106%;
-      height: 120%;
+      background: rgba(170, 233, 255, 0.34);
+      box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.55),
+        0 0 34px rgba(76, 209, 255, 0.75),
+        0 0 58px rgba(21, 157, 240, 0.58);
+      width: 108%;
+      height: 126%;
       z-index: -1;
       border-radius: inherit;
       transition: all 0.3s;
@@ -222,12 +229,12 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 106%;
-      height: 115%;
+      width: 112%;
+      height: 126%;
       overflow: hidden;
       border-radius: inherit;
       z-index: -2;
-      filter: blur(10px);
+      filter: blur(14px);
       transition: all 0.3s;
     }
 
@@ -236,49 +243,46 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 110%;
+      width: 125%;
       aspect-ratio: 1;
       border-radius: 100%;
       transition: all 0.3s;
       background-image: linear-gradient(
         90deg,
         rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0.96),
-        rgba(255, 255, 255, 0.18),
-        rgba(255, 255, 255, 0.96),
+        rgba(255, 255, 255, 0.92),
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.9),
         rgba(255, 255, 255, 0)
       );
       animation: rotate 2s linear infinite;
-      filter: blur(8px);
+      filter: blur(10px);
     }
 
     .label {
-      width: calc(100% - 24px);
-      min-height: 45px;
-      padding: 0 22px;
+      position: relative;
+      z-index: 1;
+      width: auto;
+      min-height: 0;
+      padding: 0;
       text-align: center;
-      line-height: 45px;
-      border-radius: 22px;
-      background-color: #169fe9;
-      background-image: linear-gradient(
-        180deg,
-        #57d8ff 0%,
-        #1ba8f2 55%,
-        #118fe0 100%
-      );
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.34),
-        inset 0 -6px 12px rgba(10, 83, 142, 0.22);
+      line-height: 1.1;
+      border-radius: 0;
+      background: none;
+      box-shadow: none;
       white-space: nowrap;
+      text-shadow:
+        0 1px 0 rgba(10, 83, 142, 0.22),
+        0 0 10px rgba(255, 255, 255, 0.18);
     }
 
     .button:hover .gradient-container {
       transform: translate(-50%, -50%) scale(0.98);
-      filter: blur(5px);
+      filter: blur(10px);
     }
 
     .button:hover .gradient {
-      filter: blur(5px);
+      filter: blur(6px);
     }
 
     .button:active {
@@ -288,6 +292,93 @@
     .button:focus-visible {
       outline: 2px solid rgba(122, 214, 255, 0.9);
       outline-offset: 6px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(3, 8, 16, 0.66);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 20;
+    }
+
+    .modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      width: min(100%, 320px);
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(11, 18, 31, 0.94);
+      border: 1px solid rgba(142, 223, 255, 0.14);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 24px 60px rgba(0, 0, 0, 0.42),
+        0 0 30px rgba(64, 191, 255, 0.1);
+    }
+
+    .modal-title {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .modal-text {
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: rgba(234, 246, 255, 0.72);
+    }
+
+    .server-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .server-button {
+      width: 100%;
+      border: 1px solid rgba(142, 223, 255, 0.16);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(24, 40, 60, 0.94) 0%, rgba(14, 24, 39, 0.96) 100%);
+      color: #ffffff;
+      padding: 14px 16px;
+      text-align: left;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .server-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(142, 223, 255, 0.34);
+      box-shadow: 0 10px 26px rgba(30, 128, 196, 0.24);
+    }
+
+    .server-button:focus-visible {
+      outline: 2px solid rgba(122, 214, 255, 0.9);
+      outline-offset: 3px;
+    }
+
+    .server-caption {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(234, 246, 255, 0.6);
     }
 
     @keyframes rotate {
@@ -360,7 +451,7 @@
   <main class="screen">
     <section class="stack">
       <div class="hero-copy">
-        <h1 class="hero-title">Батя починил Телеграм!</h1>
+        <h1 class="hero-title">Ускорь телеграм!</h1>
         <div class="steps-card">
           <ol class="steps-list">
             <li>
@@ -386,14 +477,31 @@
           draggable="false"
         >
       </div>
-      <button id="openProxyButton" class="button" type="button" aria-label="Ускорить ТГ">
-        <span class="label">Ускорить ТГ</span>
+      <button id="openProxyButton" class="button" type="button" aria-label="Ускорить телеграм">
+        <span class="label">Ускорить телеграм</span>
         <span class="gradient-container" aria-hidden="true">
           <span class="gradient"></span>
         </span>
       </button>
     </section>
   </main>
+
+  <div id="serverModal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="serverModalTitle">
+      <h2 id="serverModalTitle" class="modal-title">Выбери сервер</h2>
+      <p class="modal-text">Нажми на любой вариант, и Telegram откроет подключение.</p>
+      <div class="server-list">
+        <button class="server-button" type="button" data-link-index="0">
+          Сервер 1
+          <span class="server-caption">Быстрое подключение</span>
+        </button>
+        <button class="server-button" type="button" data-link-index="1">
+          Сервер 2
+          <span class="server-caption">Запасной сервер</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const linksPool = [
@@ -402,11 +510,8 @@
     ];
 
     const button = document.getElementById("openProxyButton");
-
-    function pickRandomLink() {
-      const index = Math.floor(Math.random() * linksPool.length);
-      return linksPool[index];
-    }
+    const modal = document.getElementById("serverModal");
+    const serverButtons = document.querySelectorAll("[data-link-index]");
 
     function buildAppProxyLink(link) {
       try {
@@ -437,8 +542,7 @@
       anchor.remove();
     }
 
-    function openProxy() {
-      const link = pickRandomLink();
+    function connectProxy(link) {
       const appLink = buildAppProxyLink(link);
       let appWasOpened = false;
 
@@ -458,7 +562,43 @@
       }, 900);
     }
 
-    button.addEventListener("click", openProxy);
+    function openModal() {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    button.addEventListener("click", openModal);
+
+    serverButtons.forEach((serverButton) => {
+      serverButton.addEventListener("click", () => {
+        const index = Number(serverButton.dataset.linkIndex);
+        const link = linksPool[index];
+
+        if (!link) {
+          return;
+        }
+
+        closeModal();
+        connectProxy(link);
+      });
+    });
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("is-open")) {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>

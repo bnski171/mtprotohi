@@ -199,6 +199,7 @@
       align-items: center;
       cursor: pointer;
       position: relative;
+      isolation: isolate;
       transition: all 0.3s;
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.34),
@@ -226,37 +227,39 @@
 
     .gradient-container {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 112%;
-      height: 126%;
-      overflow: hidden;
+      inset: -2px;
+      padding: 1.5px;
       border-radius: inherit;
-      z-index: -2;
-      filter: blur(14px);
-      transition: all 0.3s;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s ease, filter 0.25s ease;
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      opacity: 0.95;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.26));
     }
 
     .gradient {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 125%;
-      aspect-ratio: 1;
-      border-radius: 100%;
-      transition: all 0.3s;
-      background-image: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0.92),
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0.9),
-        rgba(255, 255, 255, 0)
+      inset: -65%;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(255, 255, 255, 0) 0deg 302deg,
+        rgba(255, 255, 255, 0.08) 324deg,
+        rgba(255, 255, 255, 0.68) 340deg,
+        rgba(255, 255, 255, 1) 350deg,
+        rgba(255, 255, 255, 0) 360deg
       );
-      animation: rotate 2s linear infinite;
-      filter: blur(10px);
+      animation: strokeSpin 2.4s linear infinite;
+      will-change: transform;
     }
 
     .label {
@@ -277,12 +280,12 @@
     }
 
     .button:hover .gradient-container {
-      transform: translate(-50%, -50%) scale(0.98);
-      filter: blur(10px);
+      opacity: 1;
+      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.34));
     }
 
     .button:hover .gradient {
-      filter: blur(6px);
+      animation-duration: 2s;
     }
 
     .button:active {
@@ -295,6 +298,8 @@
     }
 
     .modal {
+      --fx-x: 50%;
+      --fx-y: 50%;
       position: fixed;
       inset: 0;
       display: flex;
@@ -311,10 +316,50 @@
       z-index: 20;
     }
 
+    .modal::before,
+    .modal::after {
+      content: "";
+      position: absolute;
+      left: var(--fx-x);
+      top: var(--fx-y);
+      transform: translate(-50%, -50%) scale(0.2);
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .modal::before {
+      width: 180px;
+      height: 180px;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.5) 18%, rgba(150, 229, 255, 0.18) 38%, rgba(255, 255, 255, 0) 70%);
+      mix-blend-mode: screen;
+      filter: blur(5px);
+    }
+
+    .modal::after {
+      width: 280px;
+      height: 280px;
+      border: 1px solid rgba(205, 244, 255, 0.55);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+        0 0 40px rgba(115, 222, 255, 0.2);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
     .modal.is-open {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
+    }
+
+    .modal.is-open::before {
+      animation: modalFlash 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .modal.is-open::after {
+      animation: modalLens 0.95s cubic-bezier(0.16, 0.84, 0.22, 1) forwards;
     }
 
     .modal-card {
@@ -327,6 +372,33 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.08),
         0 24px 60px rgba(0, 0, 0, 0.42),
         0 0 30px rgba(64, 191, 255, 0.1);
+      transform: translateY(18px) scale(0.92);
+      opacity: 0;
+      transition:
+        transform 0.42s cubic-bezier(0.2, 0.9, 0.2, 1),
+        opacity 0.28s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.06) 22%, rgba(255, 255, 255, 0) 54%);
+      opacity: 0;
+      transform: scale(0.75);
+      pointer-events: none;
+    }
+
+    .modal.is-open .modal-card {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .modal.is-open .modal-card::before {
+      animation: modalCardSheen 0.7s 0.08s ease-out forwards;
     }
 
     .modal-title {
@@ -381,12 +453,54 @@
       color: rgba(234, 246, 255, 0.6);
     }
 
-    @keyframes rotate {
+    @keyframes strokeSpin {
       0% {
-        transform: translate(-50%, -50%) rotate(0deg);
+        transform: rotate(0deg);
       }
       100% {
-        transform: translate(-50%, -50%) rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes modalFlash {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+      }
+      20% {
+        opacity: 0.95;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(3.6);
+      }
+    }
+
+    @keyframes modalLens {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+      }
+      25% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2.8);
+      }
+    }
+
+    @keyframes modalCardSheen {
+      0% {
+        opacity: 0;
+        transform: scale(0.72);
+      }
+      35% {
+        opacity: 0.85;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.12);
       }
     }
 
@@ -562,7 +676,12 @@
       }, 900);
     }
 
-    function openModal() {
+    function openModal(event) {
+      const clickX = event?.clientX ?? window.innerWidth / 2;
+      const clickY = event?.clientY ?? window.innerHeight / 2;
+
+      modal.style.setProperty("--fx-x", `${clickX}px`);
+      modal.style.setProperty("--fx-y", `${clickY}px`);
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
     }

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="api-base-url" content="https://cbvs.especiallyforus.net">
   <title>Вернуть телегу</title>
   <style>
     :root {
@@ -184,9 +185,9 @@
     }
 
     .button {
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.14);
       outline: none;
-      background: linear-gradient(180deg, #4cd1ff 0%, #159df0 100%);
+      background: linear-gradient(180deg, #42c5ff 0%, #1d9df2 100%);
       width: min(100%, 240px);
       min-height: 60px;
       padding: 0 28px;
@@ -198,103 +199,58 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      position: relative;
-      isolation: isolate;
-      transition: all 0.3s;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.34),
-        inset 0 -8px 16px rgba(10, 83, 142, 0.22),
-        0 14px 32px rgba(21, 157, 240, 0.34);
-    }
-
-    .button::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(170, 233, 255, 0.34);
-      box-shadow:
-        0 0 18px rgba(255, 255, 255, 0.55),
-        0 0 34px rgba(76, 209, 255, 0.75),
-        0 0 58px rgba(21, 157, 240, 0.58);
-      width: 108%;
-      height: 126%;
-      z-index: -1;
-      border-radius: inherit;
-      transition: all 0.3s;
-    }
-
-    .gradient-container {
-      position: absolute;
-      inset: -2px;
-      padding: 1.5px;
-      border-radius: inherit;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-      transition: opacity 0.25s ease, filter 0.25s ease;
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      mask-composite: exclude;
-      opacity: 0.95;
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.26));
-    }
-
-    .gradient {
-      position: absolute;
-      inset: -65%;
-      border-radius: 50%;
-      background: conic-gradient(
-        from 0deg,
-        rgba(255, 255, 255, 0) 0deg 302deg,
-        rgba(255, 255, 255, 0.08) 324deg,
-        rgba(255, 255, 255, 0.68) 340deg,
-        rgba(255, 255, 255, 1) 350deg,
-        rgba(255, 255, 255, 0) 360deg
-      );
-      animation: strokeSpin 2.4s linear infinite;
-      will-change: transform;
+        inset 0 1px 0 rgba(255, 255, 255, 0.26),
+        0 10px 24px rgba(21, 157, 240, 0.26);
     }
 
     .label {
-      position: relative;
-      z-index: 1;
-      width: auto;
-      min-height: 0;
-      padding: 0;
       text-align: center;
       line-height: 1.1;
-      border-radius: 0;
-      background: none;
-      box-shadow: none;
       white-space: nowrap;
-      text-shadow:
-        0 1px 0 rgba(10, 83, 142, 0.22),
-        0 0 10px rgba(255, 255, 255, 0.18);
     }
 
-    .button:hover .gradient-container {
-      opacity: 1;
-      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.34));
-    }
-
-    .button:hover .gradient {
-      animation-duration: 2s;
+    .button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(180deg, #56ccff 0%, #2aa8f8 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 14px 28px rgba(21, 157, 240, 0.3);
     }
 
     .button:active {
-      transform: translateY(2px);
+      transform: translateY(1px) scale(0.99);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 6px 14px rgba(21, 157, 240, 0.22);
     }
 
     .button:focus-visible {
       outline: 2px solid rgba(122, 214, 255, 0.9);
       outline-offset: 6px;
+    }
+
+    .hero-credit {
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: rgba(234, 246, 255, 0.72);
+    }
+
+    .hero-credit a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: rgba(234, 246, 255, 0.45);
+      text-underline-offset: 3px;
+    }
+
+    .hero-credit a:hover {
+      color: #ffffff;
+      text-decoration-color: rgba(255, 255, 255, 0.8);
     }
 
     .modal {
@@ -453,15 +409,6 @@
       color: rgba(234, 246, 255, 0.6);
     }
 
-    @keyframes strokeSpin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
     @keyframes modalFlash {
       0% {
         opacity: 0;
@@ -565,7 +512,7 @@
   <main class="screen">
     <section class="stack">
       <div class="hero-copy">
-        <h1 class="hero-title">Ускорь телеграм!</h1>
+        <h1 class="hero-title">Ускорь Telegram!</h1>
         <div class="steps-card">
           <ol class="steps-list">
             <li>
@@ -591,41 +538,35 @@
           draggable="false"
         >
       </div>
-      <button id="openProxyButton" class="button" type="button" aria-label="Ускорить телеграм">
-        <span class="label">Ускорить телеграм</span>
-        <span class="gradient-container" aria-hidden="true">
-          <span class="gradient"></span>
-        </span>
+      <button id="openProxyButton" class="button" type="button" aria-label="Ускорить Telegram">
+        <span class="label">Ускорить Telegram</span>
       </button>
+      <p class="hero-credit">
+        <a href="https://t.me/MyBatyaVPN_bot?start=proxy_utka" target="_blank" rel="noopener noreferrer">Разработано командой Батя VPN</a>
+      </p>
     </section>
   </main>
 
   <div id="serverModal" class="modal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="serverModalTitle">
       <h2 id="serverModalTitle" class="modal-title">Выбери сервер</h2>
-      <p class="modal-text">Нажми на любой вариант, и Telegram откроет подключение.</p>
-      <div class="server-list">
-        <button class="server-button" type="button" data-link-index="0">
-          Сервер 1
-          <span class="server-caption">Быстрое подключение</span>
-        </button>
-        <button class="server-button" type="button" data-link-index="1">
-          Сервер 2
-          <span class="server-caption">Запасной сервер</span>
-        </button>
-      </div>
+      <p class="modal-text">Выбери сервер. Если не работает, попробуй другой.</p>
+      <p id="modalStatus" class="modal-text">Подгружаем доступные серверы...</p>
+      <div id="serverList" class="server-list"></div>
     </div>
   </div>
 
   <script>
-    const linksPool = [
-      "https://t.me/proxy?server=alpha.freetelega.me&port=2053&secret=ee667779b701c2b312ea39b17f6142719879612e7275",
-      "https://t.me/proxy?server=bravo.freetelega.me&port=2053&secret=eee78e764b14cebc7a57289057cc239bf879612e7275"
-    ];
-
+    const configuredApiBaseUrl =
+      window.__API_BASE_URL__ ||
+      document.querySelector('meta[name="api-base-url"]')?.content ||
+      "http://127.0.0.1:8000";
+    const API_BASE_URL = configuredApiBaseUrl.replace(/\/$/, "");
     const button = document.getElementById("openProxyButton");
     const modal = document.getElementById("serverModal");
-    const serverButtons = document.querySelectorAll("[data-link-index]");
+    const serverList = document.getElementById("serverList");
+    const modalStatus = document.getElementById("modalStatus");
+    let serversCache = [];
 
     function buildAppProxyLink(link) {
       try {
@@ -676,6 +617,83 @@
       }, 900);
     }
 
+    function setModalStatus(message) {
+      modalStatus.textContent = message;
+    }
+
+    function renderServers(servers) {
+      serverList.innerHTML = "";
+
+      if (!servers.length) {
+        setModalStatus("Сейчас нет доступных серверов. Попробуй чуть позже.");
+        return;
+      }
+
+      setModalStatus("");
+
+      servers.forEach((server) => {
+        const button = document.createElement("button");
+        button.className = "server-button";
+        button.type = "button";
+        button.textContent = server.name;
+        button.addEventListener("click", async () => {
+          await createAccess(server.id, button);
+        });
+        serverList.appendChild(button);
+      });
+    }
+
+    async function fetchServers() {
+      setModalStatus("Подгружаем доступные серверы...");
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/public/servers`, {
+          headers: {
+            Accept: "application/json"
+          }
+        });
+        if (!response.ok) {
+          throw new Error("Не удалось получить список серверов");
+        }
+
+        serversCache = await response.json();
+        renderServers(serversCache);
+      } catch (error) {
+        serverList.innerHTML = "";
+        setModalStatus(error.message || "Ошибка загрузки серверов");
+      }
+    }
+
+    async function createAccess(serverId, actionButton) {
+      const originalLabel = actionButton.innerHTML;
+      actionButton.disabled = true;
+      actionButton.innerHTML = `Подключаем...<span class="server-caption">Получаем ссылку сервера</span>`;
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/public/access/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({ server_id: serverId })
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(payload.detail || "Не удалось получить ссылку сервера");
+        }
+
+        closeModal();
+        connectProxy(payload.proxy_link);
+      } catch (error) {
+        setModalStatus(error.message || "Ошибка подключения");
+      } finally {
+        actionButton.disabled = false;
+        actionButton.innerHTML = originalLabel;
+      }
+    }
+
     function openModal(event) {
       const clickX = event?.clientX ?? window.innerWidth / 2;
       const clickY = event?.clientY ?? window.innerHeight / 2;
@@ -684,6 +702,7 @@
       modal.style.setProperty("--fx-y", `${clickY}px`);
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
+      fetchServers();
     }
 
     function closeModal() {
@@ -692,20 +711,6 @@
     }
 
     button.addEventListener("click", openModal);
-
-    serverButtons.forEach((serverButton) => {
-      serverButton.addEventListener("click", () => {
-        const index = Number(serverButton.dataset.linkIndex);
-        const link = linksPool[index];
-
-        if (!link) {
-          return;
-        }
-
-        closeModal();
-        connectProxy(link);
-      });
-    });
 
     modal.addEventListener("click", (event) => {
       if (event.target === modal) {

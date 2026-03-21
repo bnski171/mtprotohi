@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="api-base-url" content="https://cbvs.especiallyforus.net/api/">
+  <meta name="api-base-url" content="https://cbvs.especiallyforus.net">
   <title>Вернуть телегу</title>
   <style>
     :root {
@@ -560,7 +560,7 @@
     const configuredApiBaseUrl =
       window.__API_BASE_URL__ ||
       document.querySelector('meta[name="api-base-url"]')?.content ||
-      "http://127.0.0.1:8000";
+      "https://cbvs.especiallyforus.net";
     const API_BASE_URL = configuredApiBaseUrl.replace(/\/$/, "");
     const button = document.getElementById("openProxyButton");
     const modal = document.getElementById("serverModal");
